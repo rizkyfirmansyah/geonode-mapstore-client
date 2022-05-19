@@ -12,6 +12,7 @@
 
 {% get_menu_json 'CARDS_MENU' as CARDS_MENU %}
 {{ CARDS_MENU|json_script:"menu-CARDS_MENU" }}
+{% mapbox_access_token as MAPBOX_ACCESS_TOKEN %}
 
 <script>
     (function(){
@@ -66,6 +67,7 @@
         window.__GEONODE_CONFIG__ = {
             languageCode: '{{ LANGUAGE_CODE }}',
             languages: languages,
+            mapboxAccessToken: '{{ MAPBOX_ACCESS_TOKEN }}',
             translationsPath: translationsPath,
             resourceId: '{{ resource.pk|default:"" }}',
             resourceType: '{{ resource.resource_type|default:"" }}',
