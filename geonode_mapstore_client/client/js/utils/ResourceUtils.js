@@ -550,7 +550,8 @@ export const parseMapConfig = (mapResponse, resource = {}) => {
             layer.type = 'empty';
         }
         if (layer.provider === 'MapBoxStyle' || layer.provider === 'MapBox') {
-            layer.accessToken = window.__GEONODE_CONFIG__?.mapboxAccessToken
+            const { mapboxAccessToken } = getConfigProp('geoNodeSettings') || {};
+            layer.accessToken = mapboxAccessToken || '';
         }
         return layer;
     }));

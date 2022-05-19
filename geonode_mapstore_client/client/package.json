@@ -27,7 +27,6 @@
   "license": "BSD-2-Clause",
   "devDependencies": {
     "@mapstore/project": "1.0.21",
-    "webpack-cli": "4.9.0",
     "dotenv": "10.0.0",
     "jsdoc-to-markdown": "7.1.0"
   },
