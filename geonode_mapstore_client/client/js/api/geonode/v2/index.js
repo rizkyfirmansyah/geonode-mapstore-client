@@ -204,7 +204,7 @@ export const getDocumentsByDocType = (docType = 'image', {
             parseDevHostname(
                 addQueryString(endpoints[DATASETS], q && {
                     search: q,
-                    search_fields: ['title_en', 'abstract_en']
+                    search_fields: ['title', 'abstract']
                 })
             ), {
                 // axios will format query params array to `key[]=value1&key[]=value2`
