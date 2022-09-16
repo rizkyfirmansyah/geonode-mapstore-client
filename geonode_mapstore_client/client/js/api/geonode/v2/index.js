@@ -26,7 +26,7 @@ import { mergeConfigsPatch } from '@mapstore/patcher';
 let endpoints = {
     // default values
     'resources': '/api/v2/resources',
-    'documents': '/api/v2/documents',
+    'datasets': '/api/v2/datasets',
     'layers': '/api/v2/layers',
     'maps': '/api/v2/maps',
     'geoapps': '/api/v2/geoapps',
@@ -37,7 +37,7 @@ let endpoints = {
 };
 
 const RESOURCES = 'resources';
-const DOCUMENTS = 'documents';
+const DATASETS = 'datasets';
 const LAYERS = 'layers';
 const MAPS = 'maps';
 const GEOAPPS = 'geoapps';
@@ -202,9 +202,9 @@ export const getDocumentsByDocType = (docType = 'image', {
     return requestOptions(MAPS, () => axios
         .get(
             parseDevHostname(
-                addQueryString(endpoints[DOCUMENTS], q && {
+                addQueryString(endpoints[DATASETS], q && {
                     search: q,
-                    search_fields: ['title', 'abstract']
+                    search_fields: ['title_en', 'abstract_en']
                 })
             ), {
                 // axios will format query params array to `key[]=value1&key[]=value2`
@@ -220,7 +220,7 @@ export const getDocumentsByDocType = (docType = 'image', {
             return {
                 totalCount: data.total,
                 isNextPageAvailable: !!data.links.next,
-                resources: (data.documents || [])
+                resources: (data.objects || [])
                     .map((resource) => {
                         return resource;
                     })
@@ -280,7 +280,7 @@ export const updateDashboard = (pk, body) => {
 
 export const getUserByPk = (pk) => {
     return axios.get(parseDevHostname(`${endpoints[USERS]}/${pk}`))
-        .then(({ data }) => data.user);
+        .then(({ data }) => data.objects);
 };
 
 export const getAccountInfo = () => {
@@ -349,7 +349,7 @@ export const getResourceTypes = ({}) => {
     }
     return axios.get(parseDevHostname(endpoints[RESOURCE_TYPES]))
         .then(({ data }) => {
-            availableResourceTypes = (data?.resource_types || [])
+            availableResourceTypes = (data?.objects || [])
                 .map((value) => {
                     const selectOption = {
                         value: value,
@@ -387,7 +387,7 @@ export const getResourcesTotalCount = () => {
         page_size: 1
     };
     const types = [
-        DOCUMENTS,
+        DATASETS,
         LAYERS,
         MAPS,
         GEOSTORIES,
