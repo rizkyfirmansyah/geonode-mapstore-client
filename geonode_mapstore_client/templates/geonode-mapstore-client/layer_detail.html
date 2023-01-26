@@ -72,32 +72,31 @@
             };
         }
 
-        window.document.addEventListener('DOMContentLoaded', function () {
-            const embedMapNode = window.document.getElementById('embedded_map');
-            if (embedMapNode) {
-                embedMapNode.innerHTML = '';
-                // use the embed viewer
-                // instead to create a new MapStore app inside the template
-                const iframe = window.document.createElement('iframe');
-                iframe.setAttribute('src', '{{ resource.embed_url }}?config=' + pluginsConfigName + '&theme=' + theme);
-                iframe.setAttribute('frameBorder', 0);
-                iframe.setAttribute('loading', 'lazy');
-                iframe.style.position = 'absolute';
-                iframe.style.top = 0;
-                iframe.style.left = 0;
-                iframe.style.width = '100%';
-                iframe.style.height = '100%';
-                iframe.style.border = 'none';
-                iframe.style.padding = 0;
-                iframe.style.margin = 0;
-                embedMapNode.appendChild(iframe);
-                // use the mapstore api with onInitMapStoreAPI
-                // to ensure the correct loading of MapStoreAPI
-                iframe.contentWindow.onInitMapStoreAPI = function(MapStoreAPI, config) {
-                    setupUpdateLayerStyle(MapStoreAPI, config);
-                    setupCreateThumbnail(MapStoreAPI);
-                };
-            }
+        function createIframeMap() {
+              document.getElementById('loadIframeMap').remove();
+              embedMapNode.innerHTML = '';
+              // use the embed viewer
+              // instead to create a new MapStore app inside the template
+              const iframe = window.document.createElement('iframe');
+              iframe.setAttribute('src', '{{ resource.embed_url }}?config=' + pluginsConfigName + '&theme=' + theme);
+              iframe.setAttribute('frameBorder', 0);
+              iframe.setAttribute('loading', 'lazy');
+              iframe.style.position = 'absolute';
+              iframe.style.top = 0;
+              iframe.style.left = 0;
+              iframe.style.width = '100%';
+              iframe.style.height = '100%';
+              iframe.style.border = 'none';
+              iframe.style.padding = 0;
+              iframe.style.margin = 0;
+              embedMapNode.appendChild(iframe);
+              // use the mapstore api with onInitMapStoreAPI
+              // to ensure the correct loading of MapStoreAPI
+              iframe.contentWindow.onInitMapStoreAPI = function(MapStoreAPI, config) {
+                  setupUpdateLayerStyle(MapStoreAPI, config);
+                  setupCreateThumbnail(MapStoreAPI);
+              };
+
         });
     })(window);
 </script>
